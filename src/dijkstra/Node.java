@@ -17,6 +17,7 @@ public class Node {
     public String value;
     Node prev = null;
     public ArrayList<NeighbourNode> neighbours = new ArrayList<NeighbourNode>();
+   
     
     public static class NeighbourNode{
      public int cost;
@@ -47,5 +48,9 @@ public class Node {
     
     public Node GetPrevious(){
         return prev;
+    }
+    public void AddNeighbour(Node neighbour,int cost)
+    {
+        neighbours.add(new NeighbourNode(neighbour,cost));
     }
 }

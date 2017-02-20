@@ -47,18 +47,23 @@ public class View extends JFrame{
 		super("Ablakom");
 		super.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		super.setSize(600, 400);
-                File file = new File("file.txt");
+                File file = new File("utak.txt");
             try {
                 Scanner sc = new Scanner(file);
-                Node node=new Node("példa");//első város
-                Node node2= new Node("példa2");//második város
-                int cost;//sc.next();
+                Node node=new Node(sc.next());//első város
+                Node node2= new Node(sc.next());//második város
+                int cost= sc.nextInt();
                 AddCity(node);
                 AddCity(node2);
-                //AddNewPath(node,node2,cost);
+                AddNewPath(node,node2,cost);
+                
                 
                 
                 sc.close();
+                
+                for (int i = 0; i < cities.size(); i++) {
+                    System.out.println(cities.get(i).value);
+                }
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(View.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -66,7 +71,25 @@ public class View extends JFrame{
 
 		createStuff();
 	}
+        
+        public void AddNewPath(Node from,Node to,int cost)
+        {
+            for (int i = 0; i < cities.size(); i++) {
+                if (cities.get(i).value.equals(from.value)) {
+                    for (int j = 0; j < cities.get(i).neighbours.size(); j++) {
+                        if (cities.get(i).neighbours.get(j).node.value.equals(to.value)) {
+                            if (cities.get(i).neighbours.get(j).cost>cost) {
+                                cities.get(i).neighbours.get(j).cost=cost;
+                                cities.get(i).neighbours.get(j).node.SetDistance(cost);
+                                
 
+                            }
+                        }
+                    }
+                    cities.get(i).AddNeighbour(to, cost);
+                }
+            }
+        }
         public void AddCity(Node newcity)
         {
             int i=0;

@@ -1,0 +1,3 @@
+budapest szeged 2
+szeged debrecen 1
+budapest debrecen 5
