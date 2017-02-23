@@ -7,10 +7,7 @@ package dijkstra;
 
 import java.util.ArrayList;
 
-/**
- *
- * @author Suli
- */
+
 public class Node {
     
     int dist = 999999999;
