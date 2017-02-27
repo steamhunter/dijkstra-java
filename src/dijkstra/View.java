@@ -42,7 +42,16 @@ public class View extends JFrame {
             if (retval == JFileChooser.APPROVE_OPTION) {
                 File file = fc.getSelectedFile();
                 ReadFile(file);
+
             }
+
+        }
+    };
+    private final AbstractAction button2Click = new AbstractAction() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            final JButton button = (JButton) e.getSource();
+            
 
         }
     };
@@ -86,22 +95,24 @@ public class View extends JFrame {
     }
 
     private void createStuff() {
-        JButton button = new JButton(buttonClick);
-        button.setText("beolvas");
-        button.setAlignmentX(CENTER_ALIGNMENT);
+        JButton button1 = new JButton(buttonClick);
+        button1.setText("beolvas");
+        button1.setAlignmentX(CENTER_ALIGNMENT);
         startCity = new JTextField(20);
         endCity = new JTextField(20);
-        textarea= new JTextArea(15,20);
-        JPanel panel=new JPanel();
-        panel.setLayout(new BoxLayout(panel,BoxLayout.PAGE_AXIS));
-        panel.add(button);
+        textarea = new JTextArea(15, 20);
+        JButton button2=new JButton(button2Click);
+        button2.setText("keres");
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
+        panel.add(button1);
         panel.add(startCity);
         panel.add(endCity);
         panel.add(textarea);
+        panel.add(button2);
         startCity.setText("<kiinduló város>");
         endCity.setText("<cél város>");
-        add(panel,BorderLayout.PAGE_START);
-
+        add(panel, BorderLayout.PAGE_START);
 
     }
 
@@ -121,9 +132,14 @@ public class View extends JFrame {
 
             for (int i = 0; i < cities.size(); i++) {
                 if (cities.get(i).neighbours.size() > 0) {
-                   textarea.append(cities.get(i).value + " " + cities.get(i).neighbours.get(0).node.value + " " + cities.get(i).neighbours.get(0).cost);
+                    
+                     textarea.append("\n[--- " + cities.get(i).value + "---\n ");
+                    for (int j=0;j<cities.get(i).neighbours.size();j++ ) {
+                        textarea.append( ", "+cities.get(i).neighbours.get(j).node.value + " <- " + cities.get(i).neighbours.get(j).cost + "\n");
+                    }
+                    textarea.append("]");
                 } else {
-                    textarea.append(cities.get(i).value);
+                    textarea.append("\n[--- " + cities.get(i).value + "---\n]\n");
                 }
             }
         } catch (FileNotFoundException ex) {
